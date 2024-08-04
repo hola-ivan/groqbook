@@ -7,6 +7,35 @@ from markdown import markdown
 from weasyprint import HTML, CSS
 from dotenv import load_dotenv
 
+st.set_page_config(page_title="Groqbook", page_icon="📘", layout="centered",
+                   initial_sidebar_state="auto",
+                   theme={"primaryColor": "#ffcc53", "backgroundColor": "#122620",
+                          "secondaryBackgroundColor": "#f4ebd0", "textColor": "#ffffff",
+                          "font": "sans-serif"})
+
+# Custom CSS for styling
+custom_css = """
+<style>
+body {
+    background-color: #f4ebd0;
+    color: #122620;
+}
+h1, h2, h3, h4, h5, h6 {
+    color: #4b9960;
+}
+.stButton>button {
+    background-color: #ffcc53;
+    color: #122620;
+    border-radius: 8px;
+    border: 2px solid #b68d40;
+}
+.stButton>button:hover {
+    background-color: #4b9960;
+    color: #f4ebd0;
+}
+</style>
+"""
+
 # load .env file to environment
 load_dotenv()
 
@@ -357,10 +386,20 @@ if 'book_title' not in st.session_state:
 
 st.write(
     """
-# Groqbook: Write full books using llama3.1 (8b and 70b) on Groq
+# Groqbook (Ivan's version): Write full books using llama3.1 (8b and 70b) on Groq
 """
 )
 
+# Add CTA button
+if st.button("Subscribe to my blog"):
+    st.markdown(
+        """
+        <script>
+        window.open("https://holaivan.tech", "_blank")
+        </script>
+        """,
+        unsafe_allow_html=True,
+    )
 
 def disable():
     st.session_state.button_disabled = True
