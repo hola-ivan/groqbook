@@ -410,7 +410,7 @@ st.write(
 # --- CTA Button ---
 st.markdown(
     f"""
-    <div style="text-align: center; margin-top: 20px;">
+    <div style="text-align: center; margin-top: 40px; margin-bottom: 40px;"> 
         <a href="https://holaivan.tech" target="_blank">
             <button style="
                 background-color: {ACCENT_2};
