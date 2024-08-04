@@ -7,35 +7,6 @@ from markdown import markdown
 from weasyprint import HTML, CSS
 from dotenv import load_dotenv
 
-st.set_page_config(page_title="Groqbook", page_icon="📘", layout="centered",
-                   initial_sidebar_state="auto",
-                   theme={"primaryColor": "#ffcc53", "backgroundColor": "#122620",
-                          "secondaryBackgroundColor": "#f4ebd0", "textColor": "#ffffff",
-                          "font": "sans-serif"})
-
-# Custom CSS for styling
-custom_css = """
-<style>
-body {
-    background-color: #f4ebd0;
-    color: #122620;
-}
-h1, h2, h3, h4, h5, h6 {
-    color: #4b9960;
-}
-.stButton>button {
-    background-color: #ffcc53;
-    color: #122620;
-    border-radius: 8px;
-    border: 2px solid #b68d40;
-}
-.stButton>button:hover {
-    background-color: #4b9960;
-    color: #f4ebd0;
-}
-</style>
-"""
-
 # load .env file to environment
 load_dotenv()
 
@@ -47,6 +18,52 @@ if "api_key" not in st.session_state:
 if "groq" not in st.session_state:
     if GROQ_API_KEY:
         st.session_state.groq = Groq()
+
+
+# --- UI Styling ---
+st.set_page_config(page_title="Groqbook (Ivan's version)", page_icon=":books:")
+
+# Color Palette
+DARK_MODE = "#122620"
+LIGHT_MODE = "#f4ebd0"
+ACCENT_1 = "#ffcc53"
+ACCENT_2 = "#4b9960"
+ACCENT_3 = "#b68d40"
+
+# Apply styles
+st.markdown(
+    f"""
+    <style>
+        body {{
+            background-color: {DARK_MODE};
+            color: {LIGHT_MODE};
+        }}
+        .stButton>button {{
+            background-color: {ACCENT_1};
+            color: {DARK_MODE};
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-weight: bold;
+        }}
+        .stButton>button:hover {{
+            background-color: {ACCENT_2};
+        }}
+        .stTextInput>div>div>input, 
+        .stTextArea>div>div>div>textarea {{
+            background-color: {DARK_MODE};
+            color: {LIGHT_MODE};
+            border: 1px solid {ACCENT_3};
+        }}
+        h1, h2 {{
+            color: {ACCENT_1};
+        }}
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+# --- End UI Styling ---
 
 
 class GenerationStatistics:
@@ -390,16 +407,27 @@ st.write(
 """
 )
 
-# Add CTA button
-if st.button("Subscribe to my blog"):
-    st.markdown(
-        """
-        <script>
-        window.open("https://holaivan.tech", "_blank")
-        </script>
-        """,
-        unsafe_allow_html=True,
-    )
+# --- CTA Button ---
+st.markdown(
+    f"""
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="https://holaivan.tech" target="_blank">
+            <button style="
+                background-color: {ACCENT_2};
+                color: {LIGHT_MODE};
+                border: none;
+                border-radius: 5px;
+                padding: 10px 20px;
+                font-weight: bold;
+            ">
+                Subscribe to my blog!
+            </button>
+        </a>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+# --- End CTA Button ---
 
 def disable():
     st.session_state.button_disabled = True
